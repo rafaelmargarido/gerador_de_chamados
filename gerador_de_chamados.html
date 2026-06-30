@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Gerador de Chamados</title>
+
+
+<style>
+
+/* ==========================
+   CONFIGURAÇÃO GERAL
+========================== */
+
+body {
+
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:#0d0d0d;
+    color:white;
+
+}
+
+
+.container {
+
+    max-width:1000px;
+    margin:25px auto;
+    background:#1a1a1a;
+    padding:20px;
+    border-radius:12px;
+    box-shadow:0 0 20px rgba(255,102,0,0.25);
+
+}
+
+
+
+/* ==========================
+   TÍTULO
+========================== */
+
+
+h1 {
+
+    text-align:center;
+    color:#ff6600;
+    margin-bottom:20px;
+
+}
+
+
+
+/* ==========================
+   SEÇÕES
+========================== */
+
+
+.section {
+
+    background:#141414;
+    border-left:5px solid #ff6600;
+    padding:12px;
+    margin-bottom:12px;
+    border-radius:6px;
+
+}
+
+
+.section h2 {
+
+    color:#ff6600;
+    font-size:17px;
+    margin:0 0 10px 0;
+
+}
+
+
+
+/* ==========================
+   GRID DE CAMPOS
+========================== */
+
+
+.grid {
+
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:12px;
+
+}
+
+
+.full {
+
+    grid-column:1 / -1;
+
+}
+
+
+
+@media(max-width:700px){
+
+    .grid {
+
+        grid-template-columns:1fr;
+
+    }
+
+}
+
+
+
+
+/* ==========================
+   CAMPOS
+========================== */
+
+
+label {
+
+    display:block;
+    margin-top:6px;
+    margin-bottom:3px;
+    font-weight:bold;
+    color:white;
+
+}
+
+
+input,
+select,
+textarea {
+
+    width:100%;
+    padding:10px;
+    background:white;
+    color:black;
+    border:2px solid #444;
+    border-radius:6px;
+    box-sizing:border-box;
+    font-size:14px;
+
+}
+
+
+input:focus,
+select:focus,
+textarea:focus {
+
+    outline:none;
+    border-color:#ff6600;
+
+}
+
+
+textarea {
+
+    min-height:80px;
+    resize:vertical;
+
+}
+
+
+
+/* ==========================
+   BOTÕES
+========================== */
+
+
+button {
+
+    width:100%;
+    padding:12px;
+    margin-top:10px;
+    border:none;
+    border-radius:6px;
+    font-size:15px;
+    font-weight:bold;
+    cursor:pointer;
+
+}
+
+
+.btn-gerar {
+
+    background:#ff6600;
+    color:white;
+
+}
+
+
+.btn-copiar {
+
+    background:#27ae60;
+    color:white;
+
+}
+
+
+.btn-limpar {
+
+    background:#c0392b;
+    color:white;
+
+}
+
+
+button:hover {
+
+    opacity:0.85;
+
+}
+
+
+
+/* ==========================
+   RESULTADO
+========================== */
+
+
+#resultado {
+
+    background:white;
+    color:black;
+    min-height:220px;
+
+}
+
+
+</style>
+
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+<h1>GERADOR DE CHAMADOS</h1>
+
+
+
+
+<!-- ==========================
+     CLIENTE
+========================== -->
+
+
+<div class="section">
+
+
+<h2>📌 DADOS DO CLIENTE</h2>
+
+
+<div class="grid">
+
+
+<div>
+
+<label>Razão Social</label>
+<input id="razao">
+
+</div>
+
+
+
+<div>
+
+<label>CNPJ</label>
+<input id="cnpj">
+
+</div>
+
+
+
+<div class="full">
+
+<label>Endereço</label>
+<input id="endereco">
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<!-- ==========================
+     CIRCUITO
+========================== -->
+
+
+<div class="section">
+
+
+<h2>🌐 DADOS DO CIRCUITO</h2>
+
+
+<div class="grid">
+
+
+
+<div>
+
+<label>Chamado BySeven</label>
+<input id="byseven">
+
+</div>
+
+
+
+<div>
+
+<label>Operadora</label>
+<input id="operadora">
+
+</div>
+
+
+
+<div>
+
+<label>Telefone da Operadora</label>
+<input id="telefone">
+
+</div>
+
+
+
+<div>
+
+<label>Circuito</label>
+<input id="circuito">
+
+</div>
+
+
+
+<div>
+
+<label>Tipo de Ocorrência</label>
+
+<select id="ocorrencia">
+
+<option value="Link indisponível">
+Link indisponível
+</option>
+
+<option value="Link com perda de pacote">
+Link com perda de pacote
+</option>
+
+</select>
+
+</div>
+
+
+
+
+<div>
+
+<label>Equipamento Energizado</label>
+
+<select id="energia">
+
+<option value="Sim">
+Sim
+</option>
+
+<option value="Não">
+Não
+</option>
+
+</select>
+
+</div>
+
+
+
+
+<div>
+
+<label>LOS</label>
+
+<select id="los">
+
+<option value="Acesa">
+Acesa
+</option>
+
+<option value="Piscando">
+Piscando
+</option>
+
+<option value="Desligada">
+Desligada
+</option>
+
+<option value="N/A">
+N/A
+</option>
+
+</select>
+
+</div>
+
+
+
+
+<div>
+
+<label>Data/Hora</label>
+<input type="datetime-local" id="datahora">
+
+</div>
+
+
+
+
+<div class="full">
+
+<label>Alerta</label>
+<textarea id="alerta"></textarea>
+
+</div>
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<!-- ==========================
+     ATENDIMENTO
+========================== -->
+
+
+<div class="section">
+
+
+<h2>👤 ATENDIMENTO</h2>
+
+
+<div class="grid">
+
+
+<div>
+
+<label>Atendente</label>
+<input id="atendente">
+
+</div>
+
+
+
+<div>
+
+<label>Protocolo</label>
+<input id="protocolo">
+
+</div>
+
+
+
+<div class="full">
+
+<label>SLA</label>
+<input id="sla">
+
+</div>
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<!-- ==========================
+     AÇÕES
+========================== -->
+
+
+<div class="section">
+
+
+<h2>⚙️ AÇÕES</h2>
+
+
+<button class="btn-gerar" onclick="gerar()">
+GERAR CHAMADO
+</button>
+
+
+<button class="btn-copiar" onclick="copiar()">
+COPIAR DADOS
+</button>
+
+
+<button class="btn-limpar" onclick="limpar()">
+LIMPAR CAMPOS
+</button>
+
+
+</div>
+
+
+
+
+
+
+
+<!-- ==========================
+     RESULTADO
+========================== -->
+
+
+<div class="section">
+
+
+<h2>📄 RESULTADO GERADO</h2>
+
+
+<textarea id="resultado" readonly></textarea>
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+<script>
+
+
+function gerar(){
+
+
+let texto =
+
+`Solicito a abertura de chamado de reparo para ${document.getElementById("ocorrencia").value}.
+
+DADOS DO CLIENTE
+Razão Social: ${document.getElementById("razao").value}
+CNPJ: ${document.getElementById("cnpj").value}
+Endereço: ${document.getElementById("endereco").value}
+
+DADOS DO CIRCUITO
+Chamado BySeven: ${document.getElementById("byseven").value}
+Operadora: ${document.getElementById("operadora").value}
+Telefone da Operadora: ${document.getElementById("telefone").value}
+Circuito: ${document.getElementById("circuito").value}
+Tipo de Ocorrência: ${document.getElementById("ocorrencia").value}
+Equipamento Energizado: ${document.getElementById("energia").value}
+LOS: ${document.getElementById("los").value}
+Alerta: ${document.getElementById("alerta").value}
+Data/Hora: ${document.getElementById("datahora").value}
+
+ATENDIMENTO
+Atendente: ${document.getElementById("atendente").value}
+Protocolo: ${document.getElementById("protocolo").value}
+SLA: ${document.getElementById("sla").value}`;
+
+
+document.getElementById("resultado").value = texto;
+
+
+}
+
+
+
+
+
+function copiar(){
+
+
+let campo=document.getElementById("resultado");
+
+
+campo.select();
+
+campo.setSelectionRange(0,99999);
+
+
+navigator.clipboard.writeText(campo.value);
+
+
+alert("Dados copiados com sucesso!");
+
+
+
+}
+
+
+
+
+
+function limpar(){
+
+
+document.querySelectorAll("input, textarea")
+.forEach(campo=>{
+
+campo.value="";
+
+});
+
+
+
+document.querySelectorAll("select")
+.forEach(campo=>{
+
+campo.selectedIndex=0;
+
+});
+
+
+
+document.getElementById("resultado").value="";
+
+
+}
+
+
+
+</script>
+
+
+
+</body>
+
+</html>
